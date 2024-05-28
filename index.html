@@ -7,38 +7,62 @@
 </head>
 <body>
     <h1>Webcam Picture Capture</h1>
-    <select id="cameraSelect"></select>
+    <select id="cameraSelect">
+        <option value="user">Front Camera</option>
+        <option value="environment">Rear Camera</option>
+    </select>
     <video id="video" width="640" height="480" autoplay></video>
     <button id="snap">Capture</button>
     <canvas id="canvas" width="640" height="480"></canvas>
     <script>
-	
-	// Get access to the video element and the canvas element
-const video = document.getElementById('video');
-const canvas = document.getElementById('canvas');
-const context = canvas.getContext('2d');
-const snapButton = document.getElementById('snap');
+        // Get access to the video element and the canvas element
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const context = canvas.getContext('2d');
+        const snapButton = document.getElementById('snap');
+        const cameraSelect = document.getElementById('cameraSelect');
 
-// Prompt the user for permission, and get access to the webcam stream
-navigator.mediaDevices.getUserMedia({ video: true,facingMode: { exact: 'environment' } })
-    .then(stream => {
-        video.srcObject = stream;
-        video.play();
-    })
-    .catch(err => {
-        console.error("Error accessing webcam: " + err);
-    });
+        let stream;
 
-// Capture a picture when the snap button is clicked
-snapButton.addEventListener('click', () => {
-    context.drawImage(video, 0, 0, canvas.width, canvas.height);
-    // The picture is now in the canvas, you can convert it to a data URL if needed
-    const dataURL = canvas.toDataURL('image/png');
-    console.log(dataURL); // You can use this data URL to upload the image or display it elsewhere
-});
+        function startCamera(facingMode) {
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+            }
 
+            const constraints = {
+                video: {
+                    facingMode: {
+                        exact: facingMode
+                    }
+                }
+            };
 
-	
-	</script>
+            navigator.mediaDevices.getUserMedia(constraints)
+                .then(newStream => {
+                    stream = newStream;
+                    video.srcObject = newStream;
+                    video.play();
+                })
+                .catch(err => {
+                    console.error("Error accessing webcam: " + err);
+                });
+        }
+
+        // Initialize with the selected camera
+        startCamera(cameraSelect.value);
+
+        // Handle camera selection change
+        cameraSelect.addEventListener('change', () => {
+            startCamera(cameraSelect.value);
+        });
+
+        // Capture a picture when the snap button is clicked
+        snapButton.addEventListener('click', () => {
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            // The picture is now in the canvas, you can convert it to a data URL if needed
+            const dataURL = canvas.toDataURL('image/png');
+            console.log(dataURL); // You can use this data URL to upload the image or display it elsewhere
+        });
+    </script>
 </body>
 </html>
