@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webcam Picture Capture</title>
+</head>
+<body>
+    <h1>Webcam Picture Capture</h1>
+    <select id="cameraSelect"></select>
+    <video id="video" width="640" height="480" autoplay></video>
+    <button id="snap">Capture</button>
+    <canvas id="canvas" width="640" height="480"></canvas>
+    <script>
+	
+	const video = document.getElementById('video');
+const canvas = document.getElementById('canvas');
+const context = canvas.getContext('2d');
+const snapButton = document.getElementById('snap');
+const cameraSelect = document.getElementById('cameraSelect');
+
+// Get the list of video input devices
+navigator.mediaDevices.enumerateDevices().then(gotDevices).catch(handleError);
+
+function gotDevices(deviceInfos) {
+    // Clear the select element
+    while (cameraSelect.firstChild) {
+        cameraSelect.removeChild(cameraSelect.firstChild);
+    }
+
+    // Add an option for each video input device
+    deviceInfos.forEach(deviceInfo => {
+        if (deviceInfo.kind === 'videoinput') {
+            const option = document.createElement('option');
+            option.value = deviceInfo.deviceId;
+            option.text = deviceInfo.label || `Camera ${cameraSelect.length + 1}`;
+            cameraSelect.appendChild(option);
+        }
+    });
+
+    // Set the first camera as the default
+    if (cameraSelect.length > 0) {
+        cameraSelect.selectedIndex = 0;
+        startStream(cameraSelect.value);
+    }
+}
+
+// Handle errors
+function handleError(error) {
+    console.error('Error: ', error);
+}
+
+// Start the video stream with the selected camera
+function startStream(deviceId) {
+    if (window.stream) {
+        window.stream.getTracks().forEach(track => {
+            track.stop();
+        });
+    }
+
+    const constraints = {
+        video: {
+            deviceId: deviceId ? { exact: deviceId } : undefined
+        }
+    };
+
+    navigator.mediaDevices.getUserMedia(constraints)
+        .then(stream => {
+            window.stream = stream;
+            video.srcObject = stream;
+            video.play();
+        })
+        .catch(handleError);
+}
+
+// Capture the image
+snapButton.addEventListener('click', () => {
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    const dataURL = canvas.toDataURL('image/png');
+    console.log(dataURL);
+});
+
+// Change the camera when a different option is selected
+cameraSelect.onchange = () => {
+    startStream(cameraSelect.value);
+};
+
+	
+	</script>
+</body>
+</html>
