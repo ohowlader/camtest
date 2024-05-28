@@ -3,16 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Webcam Picture Capture</title>
+    <title>Webcam Picture and Video Capture</title>
 </head>
 <body>
-    <h1>Webcam Picture Capture</h1>
+    <h1>Webcam Picture and Video Capture</h1>
     <select id="cameraSelect">
         <option value="user">Front Camera</option>
         <option value="environment">Rear Camera</option>
     </select>
     <video id="video" width="640" height="480" autoplay></video>
-    <button id="snap">Capture</button>
+    <button id="snap">Capture Picture</button>
+    <button id="startVideo">Start Video</button>
+    <button id="stopVideo" disabled>Stop Video</button>
     <canvas id="canvas" width="640" height="480"></canvas>
     <script>
         // Get access to the video element and the canvas element
@@ -20,9 +22,13 @@
         const canvas = document.getElementById('canvas');
         const context = canvas.getContext('2d');
         const snapButton = document.getElementById('snap');
+        const startVideoButton = document.getElementById('startVideo');
+        const stopVideoButton = document.getElementById('stopVideo');
         const cameraSelect = document.getElementById('cameraSelect');
 
         let stream;
+        let mediaRecorder;
+        let recordedChunks = [];
 
         function startCamera(facingMode) {
             if (stream) {
@@ -62,6 +68,48 @@
             // The picture is now in the canvas, you can convert it to a data URL if needed
             const dataURL = canvas.toDataURL('image/png');
             console.log(dataURL); // You can use this data URL to upload the image or display it elsewhere
+        });
+
+        // Start video recording
+        startVideoButton.addEventListener('click', () => {
+            recordedChunks = [];
+            mediaRecorder = new MediaRecorder(stream);
+
+            mediaRecorder.ondataavailable = event => {
+                if (event.data.size > 0) {
+                    recordedChunks.push(event.data);
+                }
+            };
+
+            mediaRecorder.onstop = () => {
+                const blob = new Blob(recordedChunks, { type: 'video/webm' });
+                const url = URL.createObjectURL(blob);
+
+                const recordedVideo = document.createElement('video');
+                recordedVideo.src = url;
+                recordedVideo.play();
+
+                recordedVideo.addEventListener('play', () => {
+                    const drawFrame = () => {
+                        if (!recordedVideo.paused && !recordedVideo.ended) {
+                            context.drawImage(recordedVideo, 0, 0, canvas.width, canvas.height);
+                            requestAnimationFrame(drawFrame);
+                        }
+                    };
+                    drawFrame();
+                });
+            };
+
+            mediaRecorder.start();
+            startVideoButton.disabled = true;
+            stopVideoButton.disabled = false;
+        });
+
+        // Stop video recording
+        stopVideoButton.addEventListener('click', () => {
+            mediaRecorder.stop();
+            startVideoButton.disabled = false;
+            stopVideoButton.disabled = true;
         });
     </script>
 </body>
