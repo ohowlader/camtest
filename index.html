@@ -13,84 +13,29 @@
     <canvas id="canvas" width="640" height="480"></canvas>
     <script>
 	
-	const video = document.getElementById('video');
+	// Get access to the video element and the canvas element
+const video = document.getElementById('video');
 const canvas = document.getElementById('canvas');
 const context = canvas.getContext('2d');
 const snapButton = document.getElementById('snap');
-const cameraSelect = document.getElementById('cameraSelect');
 
-// Function to get the list of video input devices
-function getCameras() {
-    navigator.mediaDevices.enumerateDevices()
-        .then(deviceInfos => {
-            // Clear the select element
-            while (cameraSelect.firstChild) {
-                cameraSelect.removeChild(cameraSelect.firstChild);
-            }
+// Prompt the user for permission, and get access to the webcam stream
+navigator.mediaDevices.getUserMedia({ video: true,facingMode: { exact: 'environment' } })
+    .then(stream => {
+        video.srcObject = stream;
+        video.play();
+    })
+    .catch(err => {
+        console.error("Error accessing webcam: " + err);
+    });
 
-            // Add an option for each video input device
-            deviceInfos.forEach(deviceInfo => {
-                if (deviceInfo.kind === 'videoinput') {
-                    const option = document.createElement('option');
-                    option.value = deviceInfo.deviceId;
-                    option.text = deviceInfo.label || `Camera ${cameraSelect.length + 1}`;
-                    cameraSelect.appendChild(option);
-                }
-            });
-
-            // Set the first camera as the default
-            if (cameraSelect.length > 0) {
-                cameraSelect.selectedIndex = 0;
-                startStream(cameraSelect.value);
-            }
-        })
-        .catch(handleError);
-}
-
-// Handle errors
-function handleError(error) {
-    console.error('Error: ', error);
-}
-
-// Start the video stream with the selected camera
-function startStream(deviceId) {
-    if (window.stream) {
-        window.stream.getTracks().forEach(track => {
-            track.stop();
-        });
-    }
-
-    const constraints = {
-        video: {
-            deviceId: deviceId ? { exact: deviceId } : undefined
-        }
-    };
-
-    navigator.mediaDevices.getUserMedia(constraints)
-        .then(stream => {
-            window.stream = stream;
-            video.srcObject = stream;
-            video.play();
-            // Once a camera is accessed, get the list of cameras again (needed for mobile)
-            getCameras();
-        })
-        .catch(handleError);
-}
-
-// Capture the image
+// Capture a picture when the snap button is clicked
 snapButton.addEventListener('click', () => {
     context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    // The picture is now in the canvas, you can convert it to a data URL if needed
     const dataURL = canvas.toDataURL('image/png');
-    console.log(dataURL);
+    console.log(dataURL); // You can use this data URL to upload the image or display it elsewhere
 });
-
-// Change the camera when a different option is selected
-cameraSelect.onchange = () => {
-    startStream(cameraSelect.value);
-};
-
-// Initial call to get the list of cameras
-getCameras();
 
 
 	
