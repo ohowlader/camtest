@@ -19,30 +19,32 @@ const context = canvas.getContext('2d');
 const snapButton = document.getElementById('snap');
 const cameraSelect = document.getElementById('cameraSelect');
 
-// Get the list of video input devices
-navigator.mediaDevices.enumerateDevices().then(gotDevices).catch(handleError);
+// Function to get the list of video input devices
+function getCameras() {
+    navigator.mediaDevices.enumerateDevices()
+        .then(deviceInfos => {
+            // Clear the select element
+            while (cameraSelect.firstChild) {
+                cameraSelect.removeChild(cameraSelect.firstChild);
+            }
 
-function gotDevices(deviceInfos) {
-    // Clear the select element
-    while (cameraSelect.firstChild) {
-        cameraSelect.removeChild(cameraSelect.firstChild);
-    }
+            // Add an option for each video input device
+            deviceInfos.forEach(deviceInfo => {
+                if (deviceInfo.kind === 'videoinput') {
+                    const option = document.createElement('option');
+                    option.value = deviceInfo.deviceId;
+                    option.text = deviceInfo.label || `Camera ${cameraSelect.length + 1}`;
+                    cameraSelect.appendChild(option);
+                }
+            });
 
-    // Add an option for each video input device
-    deviceInfos.forEach(deviceInfo => {
-        if (deviceInfo.kind === 'videoinput') {
-            const option = document.createElement('option');
-            option.value = deviceInfo.deviceId;
-            option.text = deviceInfo.label || `Camera ${cameraSelect.length + 1}`;
-            cameraSelect.appendChild(option);
-        }
-    });
-
-    // Set the first camera as the default
-    if (cameraSelect.length > 0) {
-        cameraSelect.selectedIndex = 0;
-        startStream(cameraSelect.value);
-    }
+            // Set the first camera as the default
+            if (cameraSelect.length > 0) {
+                cameraSelect.selectedIndex = 0;
+                startStream(cameraSelect.value);
+            }
+        })
+        .catch(handleError);
 }
 
 // Handle errors
@@ -69,6 +71,8 @@ function startStream(deviceId) {
             window.stream = stream;
             video.srcObject = stream;
             video.play();
+            // Once a camera is accessed, get the list of cameras again (needed for mobile)
+            getCameras();
         })
         .catch(handleError);
 }
@@ -84,6 +88,10 @@ snapButton.addEventListener('click', () => {
 cameraSelect.onchange = () => {
     startStream(cameraSelect.value);
 };
+
+// Initial call to get the list of cameras
+getCameras();
+
 
 	
 	</script>
