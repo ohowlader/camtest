@@ -2,7 +2,7 @@
   "$schema": "https://github.com/Azure/data-api-builder/releases/download/v1.2.11/dab.draft.schema.json",
   "data-source": {
     "database-type": "mssql",
-    "connection-string": "@env('DATABASE_CONNECTION_STRING')",
+    "connection-string":"Server=tcp:omarazure.database.windows.net,1433;Initial Catalog=DAB_Test;Persist Security Info=False;User ID=omarswatest;Password=09128709Sc@ry;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
     "options": {
       "set-session-context": false
     }
