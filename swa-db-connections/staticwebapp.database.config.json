@@ -32,7 +32,7 @@
   "entities": {
     "Book": {
       "source": {
-        "object": "dbo.BuildVersion",
+        "object": "SalesLT.ProductDescription",
         "type": "table"
       },
       "graphql": {
