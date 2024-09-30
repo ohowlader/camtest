@@ -13,11 +13,6 @@
       "path": "/api",
       "request-body-strict": true
     },
-    "graphql": {
-      "enabled": true,
-      "path": "/graphql",
-      "allow-introspection": true
-    },
     "host": {
       "cors": {
         "origins": [],
@@ -30,19 +25,29 @@
     }
   },
   "entities": {
-    "Book": {
+    "Sales": {
       "source": {
         "object": "SalesLT.ProductDescription",
         "type": "table"
       },
-      "graphql": {
-        "enabled": true,
-        "type": {
-          "singular": "Book",
-          "plural": "Books"
+            
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": [
+            {
+              "action": "*"
+            }
+          ]
         }
+      ]
+    },
+	"Books": {
+      "source": {
+        "object": "dbo.Books",
+        "type": "table"
       },
-      
+            
       "permissions": [
         {
           "role": "anonymous",
