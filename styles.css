@@ -1,0 +1,72 @@
+body {
+	padding-top: 15px;
+}
+	
+.navbar {
+    background-color: blue !important; /* Bootstrap's blue color */
+}
+
+.navbar-brand {
+    color: white !important; /* White text for logo and title */
+	font-weight: bold;
+}
+
+.scroll-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;    
+    z-index: 100;    
+    display: none;
+	cursor: pointer;
+	background:white;
+}  
+		
+.required-field::before {
+  content: "** ";
+  color: red;
+}
+
+.accordion{
+    padding: 5px;
+}
+
+.accordion-button:hover:not(.collapsed),.accordion-button:hover.collapsed {
+    color: white; /* Maintain white text when open */
+    background-color: #000; /* Change the open accordion button background */
+}	
+.accordion-button:not(.collapsed),.accordion-button.collapsed {
+	background: blue;
+	color: white;
+}
+.accordion-button:not(.collapsed)::after,.accordion-button.collapsed::after,.accordion-button:hover:not(.collapsed)::after,.accordion-button:hover.collapsed::after {
+	background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+}
+
+
+.navbar-toggler {
+	border: none !important;
+}
+
+
+.dropdown-toggle::after {
+	color: white; /* Change caret color to white */
+}
+  
+.dropdown-menu{
+	background-color: blue;
+	border: solid white 1px;	
+}
+.dropdown-item:hover {
+    background-color: black !important; /* Set background to black on hover */
+  }
+
+@media (max-width: 992px) { /* Mobile view */
+    .navbar-nav {
+      text-align: center; /* Center the nav items */
+      width: 100%; /* Full width to center align */
+    }
+    
+    .navbar-collapse {
+      justify-content: center; /* Center align the nav items */
+	}
+}

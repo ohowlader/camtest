@@ -1,116 +1,260 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Webcam Picture and Video Capture</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Manager</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="flag-icons.min.css">
+  <link rel="stylesheet" href="styles.css">  
 </head>
 <body>
-    <h1>Webcam Picture and Video Capture</h1>
-    <select id="cameraSelect">
-        <option value="user">Front Camera</option>
-        <option value="environment">Rear Camera</option>
-    </select>
-    <video id="video" width="640" height="480" autoplay></video>
-    <button id="snap">Capture Picture</button>
-    <button id="startVideo">Start Video</button>
-    <button id="stopVideo" disabled>Stop Video</button>
-    <canvas id="canvas" width="640" height="480"></canvas>
-    <script>
-        // Get access to the video element and the canvas element
-        const video = document.getElementById('video');
-        const canvas = document.getElementById('canvas');
-        const context = canvas.getContext('2d');
-        const snapButton = document.getElementById('snap');
-        const startVideoButton = document.getElementById('startVideo');
-        const stopVideoButton = document.getElementById('stopVideo');
-        const cameraSelect = document.getElementById('cameraSelect');
 
-        let stream;
-        let mediaRecorder;
-        let recordedChunks = [];
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      
+	  <i class="fa-solid fa-book-open-reader fa-2xl" style="color: #ffffff;"></i>
+      Book Manager
+    </a>
+    <div class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fa-solid fa-bars fa-xl" style="color: #ffffff;"></i>
+    </div>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="#"><i class="fa-solid fa-house fa-lg" style="color: #ffffff;"></i></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"><i class="fa-solid fa-square-plus fa-lg" style="color: #ffffff;"></i></a>
+        </li>  
+		
+		<li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-language fa-lg" style="color: #ffffff;"></i>			
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item language-option d-flex align-items-center text-white fw-bold" href="#" data-lang="English"><i class="fi fi-gb"></i>English</a></li>
+			<li><a class="dropdown-item language-option d-flex align-items-center text-white fw-bold" href="#" data-lang="German"><i class="fi fi-de"></i>German</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
 
-        function startCamera(facingMode) {
-            if (stream) {
-                stream.getTracks().forEach(track => track.stop());
-            }
+	<div class="container mt-2">  
 
-            const constraints = {
-                video: {
-                    facingMode: {
-                        exact: facingMode
-                    }
-                }
-            };
+<p>
+31) After the attack on Pearl Harbor, the feelings of animosity in America against Japan increased. By late 1945, the Allied leaders met in Germany with news of a secret new weapon, called the atomic bomb, created by American scientists, that was powerful enough to destroy an entire city. However, there were some feelings that the bomb was too powerful, and the leaders chose instead to send the Potsdam Declaration to Japan warning them to surrender. The Japanese military did not know about the atomic bomb and ignored the warning, so on August 6th 1945, an American bomber called the Enola Gay was dropped on Hiroshima, Japan. This blast killed an approximated 70,000 people and destroyed more than eighty percent of the city, but the Japanese still did not surrender. The US dropped a second atomic bomb, and after a furious debate in the Japanese cabinet, the emperor of Japan announced a surrender. This day on the 14th of August became known as V-J Day, for Victory over Japan.
 
-            navigator.mediaDevices.getUserMedia(constraints)
-                .then(newStream => {
-                    stream = newStream;
-                    video.srcObject = newStream;
-                    video.play();
-                })
-                .catch(err => {
-                    console.error("Error accessing webcam: " + err);
-                });
+
+
+32) a & b) The approach to bring discrimination cases before the courts that I would have disagreed with most would have been using violence to gain attention. This approach only caused an uproar that required law enforcement and resulted in injuries of many people. Although it did bring attention, it brought the wrong sort of attention that they were seeking. The courts possibly would have been less eager to see their cases after acts of violence, since it only demonstrated rebellion.
+
+
+
+33) a & b) President Lyndon Johnson proposed the development of a plan called the Great Society, which was a plan with an ambitious goal to improve the standard of living of every American. One of these important Great Society programs was Medicare. This plan helped to pay the hospital bills of citizens over the age of 65. Similar to this program, Medicaid gave states money to help poor people of all ages with medical bills. Along with this, he fought to help Americans who lived below the poverty line. The Economic Opportunity Act was passed in 1964 to set up job-training programs for the poor. It also gave loans to businesses poor sections of the cities and offered loans to poor farmers.
+31) After the attack on Pearl Harbor, the feelings of animosity in America against Japan increased. By late 1945, the Allied leaders met in Germany with news of a secret new weapon, called the atomic bomb, created by American scientists, that was powerful enough to destroy an entire city. However, there were some feelings that the bomb was too powerful, and the leaders chose instead to send the Potsdam Declaration to Japan warning them to surrender. The Japanese military did not know about the atomic bomb and ignored the warning, so on August 6th 1945, an American bomber called the Enola Gay was dropped on Hiroshima, Japan. This blast killed an approximated 70,000 people and destroyed more than eighty percent of the city, but the Japanese still did not surrender. The US dropped a second atomic bomb, and after a furious debate in the Japanese cabinet, the emperor of Japan announced a surrender. This day on the 14th of August became known as V-J Day, for Victory over Japan.
+
+
+
+32) a & b) The approach to bring discrimination cases before the courts that I would have disagreed with most would have been using violence to gain attention. This approach only caused an uproar that required law enforcement and resulted in injuries of many people. Although it did bring attention, it brought the wrong sort of attention that they were seeking. The courts possibly would have been less eager to see their cases after acts of violence, since it only demonstrated rebellion.
+
+
+
+33) a & b) President Lyndon Johnson proposed the development of a plan called the Great Society, which was a plan with an ambitious goal to improve the standard of living of every American. One of these important Great Society programs was Medicare. This plan helped to pay the hospital bills of citizens over the age of 65. Similar to this program, Medicaid gave states money to help poor people of all ages with medical bills. Along with this, he fought to help Americans who lived below the poverty line. The Economic Opportunity Act was passed in 1964 to set up job-training programs for the poor. It also gave loans to businesses poor sections of the cities and offered loans to poor farmers.
+31) After the attack on Pearl Harbor, the feelings of animosity in America against Japan increased. By late 1945, the Allied leaders met in Germany with news of a secret new weapon, called the atomic bomb, created by American scientists, that was powerful enough to destroy an entire city. However, there were some feelings that the bomb was too powerful, and the leaders chose instead to send the Potsdam Declaration to Japan warning them to surrender. The Japanese military did not know about the atomic bomb and ignored the warning, so on August 6th 1945, an American bomber called the Enola Gay was dropped on Hiroshima, Japan. This blast killed an approximated 70,000 people and destroyed more than eighty percent of the city, but the Japanese still did not surrender. The US dropped a second atomic bomb, and after a furious debate in the Japanese cabinet, the emperor of Japan announced a surrender. This day on the 14th of August became known as V-J Day, for Victory over Japan.
+
+
+
+32) a & b) The approach to bring discrimination cases before the courts that I would have disagreed with most would have been using violence to gain attention. This approach only caused an uproar that required law enforcement and resulted in injuries of many people. Although it did bring attention, it brought the wrong sort of attention that they were seeking. The courts possibly would have been less eager to see their cases after acts of violence, since it only demonstrated rebellion.
+
+
+
+33) a & b) President Lyndon Johnson proposed the development of a plan called the Great Society, which was a plan with an ambitious goal to improve the standard of living of every American. One of these important Great Society programs was Medicare. This plan helped to pay the hospital bills of citizens over the age of 65. Similar to this program, Medicaid gave states money to help poor people of all ages with medical bills. Along with this, he fought to help Americans who lived below the poverty line. The Economic Opportunity Act was passed in 1964 to set up job-training programs for the poor. It also gave loans to businesses poor sections of the cities and offered loans to poor farmers.
+31) After the attack on Pearl Harbor, the feelings of animosity in America against Japan increased. By late 1945, the Allied leaders met in Germany with news of a secret new weapon, called the atomic bomb, created by American scientists, that was powerful enough to destroy an entire city. However, there were some feelings that the bomb was too powerful, and the leaders chose instead to send the Potsdam Declaration to Japan warning them to surrender. The Japanese military did not know about the atomic bomb and ignored the warning, so on August 6th 1945, an American bomber called the Enola Gay was dropped on Hiroshima, Japan. This blast killed an approximated 70,000 people and destroyed more than eighty percent of the city, but the Japanese still did not surrender. The US dropped a second atomic bomb, and after a furious debate in the Japanese cabinet, the emperor of Japan announced a surrender. This day on the 14th of August became known as V-J Day, for Victory over Japan.
+
+
+
+32) a & b) The approach to bring discrimination cases before the courts that I would have disagreed with most would have been using violence to gain attention. This approach only caused an uproar that required law enforcement and resulted in injuries of many people. Although it did bring attention, it brought the wrong sort of attention that they were seeking. The courts possibly would have been less eager to see their cases after acts of violence, since it only demonstrated rebellion.
+
+
+
+33) a & b) President Lyndon Johnson proposed the development of a plan called the Great Society, which was a plan with an ambitious goal to improve the standard of living of every American. One of these important Great Society programs was Medicare. This plan helped to pay the hospital bills of citizens over the age of 65. Similar to this program, Medicaid gave states money to help poor people of all ages with medical bills. Along with this, he fought to help Americans who lived below the poverty line. The Economic Opportunity Act was passed in 1964 to set up job-training programs for the poor. It also gave loans to businesses poor sections of the cities and offered loans to poor farmers.
+31) After the attack on Pearl Harbor, the feelings of animosity in America against Japan increased. By late 1945, the Allied leaders met in Germany with news of a secret new weapon, called the atomic bomb, created by American scientists, that was powerful enough to destroy an entire city. However, there were some feelings that the bomb was too powerful, and the leaders chose instead to send the Potsdam Declaration to Japan warning them to surrender. The Japanese military did not know about the atomic bomb and ignored the warning, so on August 6th 1945, an American bomber called the Enola Gay was dropped on Hiroshima, Japan. This blast killed an approximated 70,000 people and destroyed more than eighty percent of the city, but the Japanese still did not surrender. The US dropped a second atomic bomb, and after a furious debate in the Japanese cabinet, the emperor of Japan announced a surrender. This day on the 14th of August became known as V-J Day, for Victory over Japan.
+
+
+
+32) a & b) The approach to bring discrimination cases before the courts that I would have disagreed with most would have been using violence to gain attention. This approach only caused an uproar that required law enforcement and resulted in injuries of many people. Although it did bring attention, it brought the wrong sort of attention that they were seeking. The courts possibly would have been less eager to see their cases after acts of violence, since it only demonstrated rebellion.
+
+
+
+33) a & b) President Lyndon Johnson proposed the development of a plan called the Great Society, which was a plan with an ambitious goal to improve the standard of living of every American. One of these important Great Society programs was Medicare. This plan helped to pay the hospital bills of citizens over the age of 65. Similar to this program, Medicaid gave states money to help poor people of all ages with medical bills. Along with this, he fought to help Americans who lived below the poverty line. The Economic Opportunity Act was passed in 1964 to set up job-training programs for the poor. It also gave loans to businesses poor sections of the cities and offered loans to poor farmers.
+
+</p>	
+
+        <!-- Accordion for forms -->
+        <div class="accordion">
+
+            <!-- Author Submission Form -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                        Author: Submit Book ID
+                    </button>
+                </h2>
+                <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+                    <div class="accordion-body">
+                        <form id="authorSubmitForm">
+                            <div class="form-group">
+                                <label for="bookId">Book ID</label>
+                                <input type="number" class="form-control" id="bookId" placeholder="Enter Book ID">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+			
+		</div>
+		
+		<!-- Accordion for forms -->
+        <div class="accordion">
+
+            <!-- Book Keeper Form -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true" aria-controls="panelsStayOpen-collapseTwo">
+                        Book Keeper: Review Request
+                    </button>
+                </h2>
+                <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingTwo">
+                    <div class="accordion-body">
+                        <form id="bookKeeperReviewForm">
+                            <div class="row">
+                                <!-- Book Title Field -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="bookTitle">Book Title</label>
+                                        <input type="text" class="form-control" id="bookTitle" placeholder="Enter Book Title">
+                                    </div>
+                                </div>
+
+                                <!-- Page Number Field -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="pageNumber">Page Number</label>
+                                        <input type="number" class="form-control" id="pageNumber" placeholder="Enter Page Number">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+		</div>
+		
+		<!-- Accordion for forms -->
+        <div class="accordion">
+
+            <!-- Librarian Form -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="true" aria-controls="panelsStayOpen-collapseThree">
+                        Librarian: Finalize Request
+                    </button>
+                </h2>
+                <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingThree">
+                    <div class="accordion-body">
+                        <form id="librarianReviewForm">
+                            <div class="form-group">
+                                <label for="finalPageNumber">Page Number</label>
+                                <input type="number" class="form-control" id="finalPageNumber" placeholder="Enter Final Page Number">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+	
+	
+
+<!-- Scroll to Top Button -->
+<div class="scroll-to-top" id="scrollToTopBtn">
+  <i class="fa-solid fa-circle-up fa-2xl" style="color: #000;"></i>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Show/hide scroll-to-top button
+  window.onload = function() {
+    var scrollTopBtn = document.getElementById('scrollToTopBtn');
+    if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+      scrollTopBtn.style.display = "block";
+    } else {
+      scrollTopBtn.style.display = "none";
+    }
+  };
+  // Show/hide scroll-to-top button
+  window.onscroll = function() {
+    var scrollTopBtn = document.getElementById('scrollToTopBtn');
+    if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+      scrollTopBtn.style.display = "block";
+    } else {
+      scrollTopBtn.style.display = "none";
+    }
+  };
+
+  // Scroll to top on button click
+  document.getElementById('scrollToTopBtn').onclick = function() {
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  };
+
+  // Automatically collapse the navbar after clicking a menu item
+  document.querySelectorAll('.navbar-nav .nav-link').forEach(function(navLink) {
+    navLink.addEventListener('click', function(event) {
+      var isDropdown = event.target.closest('.dropdown-toggle');
+      
+      // Only collapse if it's not the Language dropdown toggle
+      if (!isDropdown) {
+        var navbarToggler = document.querySelector('.navbar-toggler');
+        var navbarCollapse = document.querySelector('.navbar-collapse');
+        if (navbarCollapse.classList.contains('show')) {
+          navbarToggler.click(); // Collapse the navbar
         }
+      }
+    });
+  });
 
-        // Initialize with the selected camera
-        startCamera(cameraSelect.value);
+  // Close the navbar when a language is selected
+  document.querySelectorAll('.dropdown-item').forEach(function(dropdownItem) {
+    dropdownItem.addEventListener('click', function() {
+      var navbarToggler = document.querySelector('.navbar-toggler');
+      var navbarCollapse = document.querySelector('.navbar-collapse');
+      if (navbarCollapse.classList.contains('show')) {
+        navbarToggler.click(); // Collapse the navbar
+      }
+    });
+  });
+  // Show alert with selected language
+  document.querySelectorAll('.language-option').forEach(function(langOption) {
+    langOption.addEventListener('click', function() {
+      var selectedLanguage = this.getAttribute('data-lang');
+      alert('Selected Language: ' + selectedLanguage);
 
-        // Handle camera selection change
-        cameraSelect.addEventListener('change', () => {
-            startCamera(cameraSelect.value);
-        });
+      // Collapse the navbar after selecting a language
+      var navbarToggler = document.querySelector('.navbar-toggler');
+      var navbarCollapse = document.querySelector('.navbar-collapse');
+      if (navbarCollapse.classList.contains('show')) {
+        navbarToggler.click(); // Collapse the navbar
+      }
+    });
+  });
+</script>
 
-        // Capture a picture when the snap button is clicked
-        snapButton.addEventListener('click', () => {
-            context.drawImage(video, 0, 0, canvas.width, canvas.height);
-            // The picture is now in the canvas, you can convert it to a data URL if needed
-            const dataURL = canvas.toDataURL('image/png');
-            console.log(dataURL); // You can use this data URL to upload the image or display it elsewhere
-        });
-
-        // Start video recording
-        startVideoButton.addEventListener('click', () => {
-            recordedChunks = [];
-            mediaRecorder = new MediaRecorder(stream);
-
-            mediaRecorder.ondataavailable = event => {
-                if (event.data.size > 0) {
-                    recordedChunks.push(event.data);
-                }
-            };
-
-            mediaRecorder.onstop = () => {
-                const blob = new Blob(recordedChunks, { type: 'video/webm' });
-                const url = URL.createObjectURL(blob);
-
-                const recordedVideo = document.createElement('video');
-                recordedVideo.src = url;
-                recordedVideo.play();
-
-                recordedVideo.addEventListener('play', () => {
-                    const drawFrame = () => {
-                        if (!recordedVideo.paused && !recordedVideo.ended) {
-                            context.drawImage(recordedVideo, 0, 0, canvas.width, canvas.height);
-                            requestAnimationFrame(drawFrame);
-                        }
-                    };
-                    drawFrame();
-                });
-            };
-
-            mediaRecorder.start();
-            startVideoButton.disabled = true;
-            stopVideoButton.disabled = false;
-        });
-
-        // Stop video recording
-        stopVideoButton.addEventListener('click', () => {
-            mediaRecorder.stop();
-            startVideoButton.disabled = false;
-            stopVideoButton.disabled = true;
-        });
-    </script>
 </body>
 </html>
