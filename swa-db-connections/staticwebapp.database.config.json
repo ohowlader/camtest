@@ -92,6 +92,23 @@
           ]
         }
       ]
+    },
+	"PIMS_UK": {
+      "source": {
+        "object": "dbo.PIMS_UK",
+        "type": "table"
+      },
+            
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": [
+            {
+              "action": "*"
+            }
+          ]
+        }
+      ]
     }
   }
 }
