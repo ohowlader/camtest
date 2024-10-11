@@ -61,7 +61,7 @@
     },
 	"RCA": {
       "source": {
-        "object": "dbp.RCA",
+        "object": "dbo.RCA",
         "type": "table"
       },
             
