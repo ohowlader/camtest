@@ -58,6 +58,23 @@
           ]
         }
       ]
-    }
+    },
+	"RCA": {
+      "source": {
+        "object": "dbp.RCA",
+        "type": "table"
+      },
+            
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": [
+            {
+              "action": "*"
+            }
+          ]
+        }
+      ]
+    },
   }
 }
