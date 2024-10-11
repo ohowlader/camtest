@@ -75,6 +75,23 @@
           ]
         }
       ]
+    },
+	"PIMS": {
+      "source": {
+        "object": "dbo.PIMS",
+        "type": "table"
+      },
+            
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": [
+            {
+              "action": "*"
+            }
+          ]
+        }
+      ]
     }
   }
 }
