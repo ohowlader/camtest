@@ -254,6 +254,16 @@
       }
     });
   });
+  
+async function getdata(){
+	let url = 'https://34.30.189.228:8081/api/Name';
+	let response = await fetch(url);
+	let data = await response.json();
+	console.log(data);
+
+}
+  
+getdata();
 </script>
 
 </body>
